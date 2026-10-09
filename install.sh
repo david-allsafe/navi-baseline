@@ -9,7 +9,7 @@ REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BIN_DIR="$HOME/.local/bin"
 CHEATS_DIR="$HOME/.local/share/navi/cheats/david"
 NOTAS_DIR="$HOME/notas"
-EXTRA_PKGS=(tldr tree libimage-exiftool-perl poppler-utils)
+EXTRA_PKGS=(tealdeer tree libimage-exiftool-perl poppler-utils)
 
 # SHA-256 dos binários oficiais (releases do GitHub, v2.24.0)
 declare -A SHA256=(
