@@ -1,0 +1,462 @@
+% kali, ficheiros, linux
+
+# Mostra o diretório atual
+pwd
+
+# Lista ficheiros e pastas
+ls
+
+# Lista em formato longo (permissões, dono, tamanho)
+ls -l
+
+# Lista também os ficheiros ocultos
+ls -a
+
+# Lista tudo, incluindo ocultos, em formato longo
+ls -la
+
+# Muda de diretório
+cd <dir>
+
+# Sobe para o diretório pai
+cd ..
+
+# Cria um diretório
+mkdir <new_dir>
+
+# Remove um diretório vazio
+rmdir <dir>
+
+# Remove um ficheiro
+rm <file>
+
+# Remove um diretório recursivamente
+rm -r <dir>
+
+# Remove recursivamente, forçado e sem confirmação (cuidado)
+rm -rf <dir>
+
+# Copia ficheiros ou diretórios
+cp <src> <dst>
+
+# Move ou renomeia
+mv <src> <dst>
+
+# Cria um ficheiro vazio
+touch <new_file>
+
+# Mostra o conteúdo de um ficheiro
+cat <file>
+
+# Vê o conteúdo página a página
+less <file>
+
+# Edita um ficheiro no terminal
+nano <file>
+
+# Altera permissões
+chmod <perm> <file>
+
+# Altera dono e grupo
+sudo chown <user>:<group> <file>
+
+$ dir: ls -d */ 2>/dev/null
+$ file: ls -p | grep -v /
+$ src: ls -p
+$ perm: printf '755\n644\n700\n600\n+x\n'
+$ user: cut -d: -f1 /etc/passwd
+$ group: cut -d: -f1 /etc/group
+
+
+% kali, pesquisa, linux
+
+# Procura um ficheiro pelo nome
+find <path> -name <name> 2>/dev/null
+
+# Encontra só ficheiros
+find <path> -type f
+
+# Encontra só diretórios
+find <path> -type d
+
+# Localização rápida via base de dados (correr updatedb antes)
+locate <name>
+
+# Atualiza a base de dados do locate
+sudo updatedb
+
+# Procura texto num ficheiro
+grep "<keyword>" <file>
+
+# Procura texto recursivamente num diretório
+grep -r "<keyword>" <path>
+
+# Mostra o caminho do executável de um comando
+which <command>
+
+# Mostra binário, código-fonte e manual
+whereis <command>
+
+$ path: printf '.\n/\n/etc\n/var/log\n/home\n/tmp\n'
+$ file: ls -p | grep -v /
+
+
+% kali, sistema, linux
+
+# Mostra o utilizador atual
+whoami
+
+# Mostra UID, GID e grupos
+id
+
+# Mostra kernel e informação do sistema
+uname -a
+
+# Mostra o nome da máquina
+hostname
+
+# Há quanto tempo o sistema está ligado
+uptime
+
+# Mostra a versão do sistema operativo
+cat /etc/os-release
+
+# Informação do CPU
+lscpu
+
+# Uso de memória RAM
+free -h
+
+# Uso de disco por partição
+df -h
+
+# Tamanho total de um diretório
+du -sh <dir>
+
+# Monitoriza processos em tempo real
+top
+
+# Visualizador interativo de processos
+htop
+
+# Lista todos os processos
+ps aux
+
+# Termina um processo pelo PID
+kill <pid>
+
+# Termina processos pelo nome
+killall <process_name>
+
+$ dir: ls -d */ 2>/dev/null
+$ pid: ps -eo pid,user,comm --- --column 1 --header-lines 1
+$ process_name: ps -e -o comm= | sort -u
+
+
+% kali, rede, linux
+
+# Mostra interfaces e endereços IP
+ip a
+
+# Mostra a tabela de encaminhamento
+ip r
+
+# Testa conectividade
+ping <host>
+
+# Envia só 4 pacotes ICMP
+ping -c 4 <host>
+
+# Portas em escuta (ferramenta legada)
+netstat -tuln
+
+# Portas em escuta (ferramenta moderna)
+ss -tuln
+
+# Portas em escuta com o processo associado
+sudo ss -tulnp
+
+# Mostra a tabela ARP
+arp -a
+
+# Mostra a rota até ao host
+traceroute <host>
+
+# Obtém o conteúdo de uma página web
+curl <url>
+
+# Obtém só os cabeçalhos HTTP
+curl -I <url>
+
+# Descarrega ficheiros
+wget <url>
+
+# Consulta DNS detalhada
+dig <domain>
+
+# Consulta DNS simples
+host <domain>
+
+# Consulta DNS
+nslookup <domain>
+
+# Interfaces de rede (legado)
+ifconfig
+
+$ host: printf '8.8.8.8\n1.1.1.1\ngoogle.com\n'
+
+
+% kali, apt, pacotes, linux
+
+# Atualiza a lista de pacotes
+sudo apt update
+
+# Atualiza os pacotes instalados
+sudo apt upgrade
+
+# Atualiza tudo, removendo pacotes se preciso
+sudo apt full-upgrade
+
+# Instala um pacote
+sudo apt install <pkg>
+
+# Remove um pacote, mantém configurações
+sudo apt remove <installed_pkg>
+
+# Remove um pacote e as configurações
+sudo apt purge <installed_pkg>
+
+# Remove dependências que já não são usadas
+sudo apt autoremove
+
+# Procura um pacote
+apt search <pkg>
+
+# Mostra informação de um pacote
+apt show <pkg>
+
+# Lista pacotes instalados (via dpkg)
+dpkg -l
+
+# Lista pacotes instalados
+apt list --installed
+
+# Limpa a cache de pacotes descarregados
+sudo apt clean
+
+$ installed_pkg: dpkg-query -W -f='${Package}\n'
+
+
+% kali, utilizadores, permissões, linux
+
+# Executa um comando como root
+sudo <command>
+
+# Muda para o utilizador root
+sudo su
+
+# Muda para outro utilizador
+su - <user>
+
+# Cria um utilizador
+sudo adduser <new_user>
+
+# Define a password de um utilizador
+sudo passwd <user>
+
+# Apaga um utilizador
+sudo userdel <user>
+
+# Adiciona um utilizador a um grupo
+sudo usermod -aG <group> <user>
+
+# Mostra os grupos a que pertences
+groups
+
+# Altera só o grupo de um ficheiro
+sudo chgrp <group> <file>
+
+$ user: cut -d: -f1 /etc/passwd
+$ group: cut -d: -f1 /etc/group
+$ file: ls -p | grep -v /
+
+
+% kali, compressão, arquivos, linux
+
+# Cria um .tar
+tar -cvf <name>.tar <dir>
+
+# Extrai um .tar
+tar -xvf <archive>
+
+# Cria um .tar.gz
+tar -czvf <name>.tar.gz <dir>
+
+# Extrai um .tar.gz
+tar -xzvf <archive>
+
+# Cria um .tar.bz2
+tar -cjvf <name>.tar.bz2 <dir>
+
+# Extrai um .tar.bz2
+tar -xjvf <archive>
+
+# Cria um .zip
+zip -r <name>.zip <dir>
+
+# Extrai um .zip
+unzip <archive>
+
+# Comprime para .gz
+gzip <file>
+
+# Descomprime um .gz
+gunzip <archive>
+
+$ dir: ls -d */ 2>/dev/null
+$ file: ls -p | grep -v /
+$ archive: ls *.tar *.tar.gz *.tgz *.tar.bz2 *.zip *.gz 2>/dev/null
+
+
+% kali, texto, logs, linux
+
+# Primeiras 10 linhas
+head <file>
+
+# Primeiras N linhas
+head -n <lines> <file>
+
+# Últimas 10 linhas
+tail <file>
+
+# Últimas N linhas
+tail -n <lines> <file>
+
+# Segue o ficheiro em tempo real
+tail -f <file>
+
+# Extrai a primeira coluna separada por espaços
+cut -d " " -f1 <file>
+
+# Ordena as linhas
+sort <file>
+
+# Remove duplicados (ordena primeiro)
+sort <file> | uniq
+
+# Conta ocorrências de cada linha, da mais frequente para a menos
+sort <file> | uniq -c | sort -rn
+
+# Conta linhas, palavras e bytes
+wc <file>
+
+# Conta só as linhas
+wc -l <file>
+
+# SOC: últimas tentativas de login falhadas por SSH
+sudo grep "Failed password" /var/log/auth.log | tail -n 20
+
+# SOC: IPs com mais tentativas de login falhadas
+sudo grep "Failed password" /var/log/auth.log | grep -oE "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | sort | uniq -c | sort -rn
+
+$ file: find . /var/log -maxdepth 1 -type f 2>/dev/null
+$ lines: printf '20\n50\n100\n'
+
+
+% kali, processos, jobs, linux
+
+# Lista os jobs da sessão
+jobs
+
+# Retoma um job em background
+bg %<job_id>
+
+# Traz um job para foreground
+fg %<job_id>
+
+# Executa com prioridade mais baixa
+nice -n 10 <command>
+
+# Altera a prioridade de um processo a correr
+renice 5 -p <pid>
+
+$ pid: ps -eo pid,user,comm --- --column 1 --header-lines 1
+
+
+% kali, caminhos, logs, linux
+
+# Contas de utilizador
+cat /etc/passwd
+
+# Hashes de passwords (só root)
+sudo cat /etc/shadow
+
+# Mapeamento local hostname-IP
+cat /etc/hosts
+
+# Configuração de rede (Debian/Kali)
+cat /etc/network/interfaces
+
+# Lista os ficheiros de log
+ls -lh /var/log/
+
+# Home do root
+sudo ls -la /root/
+
+# Home de um utilizador
+ls -la /home/<user>/
+
+$ user: ls /home
+
+
+% kali, ferramentas, pentest
+
+# Scan de portas
+nmap <target>
+
+# Deteta versões dos serviços
+nmap -sV <target>
+
+# SO, versões, scripts e traceroute
+sudo nmap -A <target>
+
+# Captura e análise de pacotes
+wireshark
+
+# Proxy para testar aplicações web
+burpsuite
+
+# Consola do Metasploit
+msfconsole
+
+# Brute-force de logins
+hydra -l <user> -P <wordlist> <target> <service>
+
+# Cracking de hashes de passwords
+john <hash_file>
+
+# Cracking de chaves Wi-Fi
+aircrack-ng <capture>
+
+# Testa SQL injection e lista bases de dados
+sqlmap -u "<url>" --dbs
+
+# Scanner de vulnerabilidades em servidores web
+nikto -h <url>
+
+# Scanner de conteúdo web
+dirb <url>
+
+# Brute-force de diretórios web
+gobuster dir -u <url> -w <wordlist>
+
+$ wordlist: find /usr/share/wordlists -type f 2>/dev/null
+$ service: printf 'ssh\nftp\nhttp-get\nrdp\nsmb\n'
+
+% kali, notas
+
+# Lê as minhas notas
+cat ~/notas/01.txt
+
+# Edita as minhas notas
+nano ~/notas/01.txt
