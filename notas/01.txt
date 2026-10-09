@@ -1,0 +1,33 @@
+## navi
+Cheat sheets: ~/.local/share/navi/cheats/david/
+Editar: nano ~/.local/share/navi/cheats/david/ubuntu.cheat
+Abrir: navi ou Ctrl + G
+Dica: cd para a pasta antes de abrir o navi (sugere ficheiros)
+
+## Instalar navi noutra máquina (repo navi-baseline)
+git clone https://github.com/david-allsafe/navi-baseline.git
+cd navi-baseline && bash install.sh
+Abrir terminal novo → navi
+
+## Atualizar o repo depois de editar cheats
+cd ~/navi-baseline && bash recolher.sh
+git add -A && git commit -m "Atualiza cheats" && git push
+Noutras máquinas: cd ~/navi-baseline && git pull && bash install.sh
+
+## Formato .cheat
+% tags
+# descrição
+comando <placeholder>
+
+## Lab
+Kali = atacante | Ubuntu = vítima, onde investigo
+
+## tldr
+tldr <comando>          → exemplos rápidos de qualquer comando
+tldr --update           → atualiza a base de exemplos
+navi --tldr <comando>   → exemplos do tldr dentro do navi
+
+## Quando usar cada um
+tldr → comando novo, ver como se usa
+navi → os meus comandos, executar e preencher placeholders
+man  → manual completo, quando preciso de todos os detalhes

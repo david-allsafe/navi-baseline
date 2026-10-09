@@ -1,0 +1,256 @@
+% ubuntu, navegação
+
+# Mostra a pasta atual
+pwd
+
+# Lista tudo, incluindo ocultos, com permissões
+ls -la
+
+# Muda de pasta
+cd <dir>
+
+# Volta à pasta anterior
+cd -
+
+# Mostra a estrutura de pastas
+tree <dir>
+
+$ dir: printf '.\n'; ls -d */ 2>/dev/null
+
+
+% ubuntu, ficheiros
+
+# Copia um ficheiro
+cp <src> <dst>
+
+# Copia uma pasta (recursivo)
+cp -r <src> <dst>
+
+# Move ou renomeia
+mv <src> <dst>
+
+# Apaga um ficheiro (sem lixo, não há volta)
+rm <file>
+
+# Cria uma pasta (e as pastas pai, se faltarem)
+mkdir -p <new_dir>
+
+# Cria um ficheiro vazio
+touch <new_file>
+
+$ src: ls -p
+$ file: ls -p | grep -v /
+
+
+% ubuntu, ler ficheiros
+
+# Mostra o ficheiro todo
+cat <file>
+
+# Lê com scroll (q sai, /texto procura)
+less <file>
+
+# Primeiras N linhas
+head -n <lines> <file>
+
+# Segue um log em tempo real
+tail -f <file>
+
+$ file: find . /var/log -maxdepth 1 -type f 2>/dev/null
+$ lines: printf '20\n50\n100\n'
+
+
+% ubuntu, procurar
+
+# Procura texto num ficheiro
+grep "<keyword>" <file>
+
+# Procura texto ignorando maiúsculas
+grep -i "<keyword>" <file>
+
+# Procura texto recursivamente numa pasta
+grep -r "<keyword>" <dir>
+
+# Procura ficheiros por nome ou padrão (ex.: *.pdf)
+find <path> -name "<pattern>" 2>/dev/null
+
+# Onde está o binário de um comando
+which <command>
+
+$ file: ls -p | grep -v /
+$ dir: printf '.\n/etc\n/var/log\n'
+$ path: printf '/\n.\n/home\n/tmp\n'
+$ pattern: printf '*.pdf\n*.log\n*.sh\n*.txt\n'
+
+
+% ubuntu, forense, análise de ficheiros
+
+# Tipo real do ficheiro (ignora a extensão)
+file <file>
+
+# Texto legível dentro de binários
+strings <file>
+
+# Hash SHA-256 (comparar no VirusTotal)
+sha256sum <file>
+
+# Metadados do ficheiro
+exiftool <file>
+
+# Metadados de um PDF
+pdfinfo <pdf>
+
+$ file: ls -p | grep -v /
+$ pdf: ls *.pdf 2>/dev/null
+
+
+% ubuntu, pipes, redireção
+
+# Filtra o output de um comando com grep
+<command> | grep "<keyword>"
+
+# Escreve o output num ficheiro (apaga o conteúdo anterior)
+<command> > <file>
+
+# Acrescenta o output ao fim de um ficheiro
+<command> >> <file>
+
+# Conta ocorrências de cada linha, da mais frequente para a menos (logs)
+sort <file> | uniq -c | sort -nr
+
+# Conta linhas
+wc -l <file>
+
+$ file: ls -p | grep -v /
+
+
+% ubuntu, sistema, processos
+
+# Processos ativos
+ps aux
+
+# Monitor em tempo real
+top
+
+# Monitor interativo em tempo real
+htop
+
+# Termina um processo pelo PID
+kill <pid>
+
+# Espaço em disco
+df -h
+
+# Utilizador atual
+whoami
+
+# Utilizador, UID e grupos
+id
+
+$ pid: ps -eo pid,user,comm --- --column 1 --header-lines 1
+
+
+% ubuntu, rede
+
+# Interfaces e endereços IP
+ip a
+
+# Portas abertas e serviços associados
+sudo ss -tulpn
+
+# Testa conectividade
+ping -c 4 <host>
+
+# Cabeçalhos HTTP de um site
+curl -I <url>
+
+$ host: printf '8.8.8.8\n1.1.1.1\ngoogle.com\n'
+
+
+% ubuntu, logs, soc
+
+# Logins e uso de sudo em tempo real
+sudo tail -f /var/log/auth.log
+
+# Tentativas de login SSH falhadas
+sudo grep "Failed password" /var/log/auth.log
+
+# IPs com mais tentativas de login falhadas (brute-force)
+sudo grep "Failed password" /var/log/auth.log | grep -oE "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+" | sort | uniq -c | sort -nr
+
+# Logs do systemd (últimos, com explicações)
+journalctl -xe
+
+
+% ubuntu, permissões
+
+# Torna um script executável
+chmod +x <file>
+
+# Muda dono e grupo
+sudo chown <user>:<group> <file>
+
+# Executa como root
+sudo <command>
+
+$ file: ls -p | grep -v /
+$ user: cut -d: -f1 /etc/passwd
+$ group: cut -d: -f1 /etc/group
+
+
+% ubuntu, ajuda
+
+# Exemplos rápidos de um comando
+tldr <command>
+
+# Resumo das opções
+<command> --help
+
+# Manual completo
+man <command>
+
+# Procura comandos por tema
+apropos <keyword>
+
+% ubuntu, soc, investigação
+
+# Histórico de logins
+last
+
+# Logins falhados
+sudo lastb
+
+# Quem está ligado agora e o que está a fazer
+w
+
+# Tarefas agendadas do utilizador (persistência)
+crontab -l
+
+# Tarefas agendadas do sistema (persistência)
+ls -la /etc/cron*
+
+# Serviços ativos
+systemctl list-units --type=service --state=running
+
+# Ligações estabelecidas e o processo de cada uma
+sudo ss -tunp
+
+# Processos com ligações de rede abertas
+sudo lsof -i
+
+# Ficheiros modificados nas últimas 24h
+sudo find / -mtime -1 -type f 2>/dev/null
+
+# Logs só do serviço SSH
+journalctl -u ssh
+
+# Comandos que o utilizador correu
+history
+
+% ubuntu, notas
+
+# Lê as minhas notas
+cat ~/notas/01.txt
+
+# Edita as minhas notas
+nano ~/notas/01.txt
